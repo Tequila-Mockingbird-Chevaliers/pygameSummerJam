@@ -8,9 +8,7 @@ from src.entities.game_object import GameObject
 
 class Ball(GameObject):
     def __init__(self, game):
-        image = pygame.Surface((20, 20))
-        image.set_colorkey("Black")
-        pygame.draw.circle(image, "RED", (10, 10), 10)
+        image = game.program.assets.images['BALL']
         rect = image.get_rect()
         rect.center = (const.WIDTH // 2, const.HEIGHT - 75)
         super().__init__(game, image, rect)

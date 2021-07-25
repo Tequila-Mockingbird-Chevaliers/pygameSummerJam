@@ -6,8 +6,7 @@ from src.entities.game_object import GameObject
 
 class Paddle(GameObject):
     def __init__(self, game):
-        image = pygame.Surface((80, 30))
-        image.fill("GREEN")
+        image = game.program.assets.images['PADDLE']
         rect = image.get_rect()
         rect.center = (const.WIDTH // 2, const.HEIGHT - 50)
         super().__init__(game, image, rect)

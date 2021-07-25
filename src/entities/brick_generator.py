@@ -15,4 +15,3 @@ class BrickGenerator:
             for column in range(len(text[row])):
                 if text[row][column] == "x":
                     self.bricks.append((row, column))
-        print(self.bricks)

@@ -7,6 +7,9 @@ class GameObject:
         self.image = image
         self.rect = rect
 
+    def remove(self):
+        pass
+
     def events(self, events):
         pass
 

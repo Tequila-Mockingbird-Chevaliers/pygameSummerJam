@@ -49,6 +49,7 @@ class ObjectManager(metaclass=_Singleton):
         for group in self.objects.values():
             if obj in group.objects:
                 group.objects.remove(obj)
+                obj.remove()
                 return
 
     def clear_objects(self):

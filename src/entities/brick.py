@@ -10,3 +10,7 @@ class Brick(GameObject):
         rect = image.get_rect()
         rect.topleft = (grid_x * 50, 300 + grid_y * 20)
         super().__init__(game, image, rect)
+
+    def remove(self):
+        self.game.add_score(10)
+        print(self.game.score)

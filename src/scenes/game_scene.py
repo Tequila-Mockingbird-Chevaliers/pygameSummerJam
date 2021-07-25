@@ -11,6 +11,7 @@ class GameScene(Scene):
     def __init__(self, program):
         super().__init__(program)
         self.in_play = False
+        self.score = 0
         self.paddle = self.object_manager.add_object("paddle", Paddle(self))
         self.ball = self.object_manager.add_object("ball", Ball(self))
         brick_generator = BrickGenerator("1")
@@ -18,6 +19,9 @@ class GameScene(Scene):
             self.object_manager.add_object(
                 "bricks", Brick(self, brick_pos[1], brick_pos[0])
             )
+
+    def add_score(self, amount):
+        self.score += amount
 
     def events(self, events):
         self.object_manager.events(events)

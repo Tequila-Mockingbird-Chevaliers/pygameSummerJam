@@ -1,10 +1,15 @@
+import random
+
 import pygame
 
+from src.Timer import Timer
 from src.entities.ball import Ball
 from src.entities.paddle import Paddle
 from src.entities.brick_generator import BrickGenerator
 from src.entities.brick import Brick
+from src.entities.spaceship import Spaceship
 from src.scenes.scene import Scene
+import src.constants as const
 
 
 class GameScene(Scene):
@@ -14,7 +19,9 @@ class GameScene(Scene):
         self.score = 0
         self.paddle = self.object_manager.add_object("paddle", Paddle(self))
         self.ball = self.object_manager.add_object("ball", Ball(self))
-        brick_generator = BrickGenerator("1")
+        self.spaceship_spawn_timer = Timer(const.SPACESHIP_SPAWN_TIMER)
+        self.free_positions = [0, 1, 2, 3, 4, 5]
+        brick_generator = BrickGenerator(1)
         for brick_pos in brick_generator.bricks:
             self.object_manager.add_object(
                 "bricks", Brick(self, brick_pos[1], brick_pos[0])
@@ -38,6 +45,10 @@ class GameScene(Scene):
             self.object_manager.test_collision(
                 "ball", "bricks", self.ball_brick_collision
             )
+            if self.spaceship_spawn_timer.check_time():
+                position = random.choice(self.free_positions)
+                self.free_positions.remove(position)
+                self.object_manager.add_object('spacehips', Spaceship(self, position))
         self.object_manager.update()
 
     def render(self, screen: pygame.Surface):

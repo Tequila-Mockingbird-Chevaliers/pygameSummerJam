@@ -55,6 +55,9 @@ class ObjectManager(metaclass=_Singleton):
     def clear_objects(self):
         self.objects.clear()
 
+    def get_number_of_objects(self, name):
+        return len(self.objects[name].objects)
+
     def events(self, events):
         for group in self.objects.values():
             group.events(events)

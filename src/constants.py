@@ -7,6 +7,8 @@ FPS = 60
 
 BALL_SPEED = 10
 PADDLE_SPEED = 5
+SPACESHIP_SPAWN_TIMER = 5000
+SPACESHIP_SHOOT_TIMER = 2350
 
 FOLDER = os.path.dirname(sys.modules["__main__"].__file__)
 IMAGE_FOLDER = os.path.join(FOLDER, 'Assets\\Images')
@@ -14,4 +16,5 @@ IMAGE_FOLDER = os.path.join(FOLDER, 'Assets\\Images')
 PADDLE_IMAGE = 'Paddle.png'
 BALL_IMAGE = 'Ball.png'
 BRICK_IMAGE = 'Brick.png'
+SPACESHIP_IMAGE = 'Spaceship.png'
 NO_OF_BRICK_IMAGES = 3

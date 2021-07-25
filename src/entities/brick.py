@@ -1,7 +1,4 @@
 import random
-
-import pygame
-
 from src.entities.game_object import GameObject
 import src.constants as const
 
@@ -15,4 +12,3 @@ class Brick(GameObject):
 
     def remove(self):
         self.game.add_score(10)
-        print(self.game.score)

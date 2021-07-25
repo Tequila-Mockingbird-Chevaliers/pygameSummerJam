@@ -1,3 +1,5 @@
+import platform
+
 import pygame
 import src.constants as const
 import src.scene_manager
@@ -6,6 +8,12 @@ import src.scenes.game_scene
 
 class SpaceBreaker:
     def __init__(self):
+        if platform.system() == 'Windows':
+            from ctypes import windll
+            try:
+                windll.user32.SetProcessDPIAware()
+            except AttributeError:
+                pass
         self.screen = pygame.display.set_mode((const.WIDTH, const.HEIGHT))
         self.manager = src.scene_manager.SceneManager(self)
         self.manager.go_to(src.scenes.game_scene.GameScene(self))

@@ -1,4 +1,4 @@
-from src.Timer import Timer
+from src.timer import Timer
 from src.entities.game_object import GameObject
 import src.constants as const
 from src.entities.laser import Laser

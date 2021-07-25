@@ -2,7 +2,7 @@ import random
 
 import pygame
 
-from src.Timer import Timer
+from src.timer import Timer
 from src.entities.ball import Ball
 from src.entities.paddle import Paddle
 from src.entities.brick_generator import BrickGenerator

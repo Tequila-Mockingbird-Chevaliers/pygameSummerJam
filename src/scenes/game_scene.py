@@ -31,7 +31,9 @@ class GameScene(Scene):
             self.object_manager.test_collision(
                 "ball", "paddle", self.ball_paddle_collision
             )
-            self.object_manager.test_collision('ball', 'bricks', self.ball_brick_collision)
+            self.object_manager.test_collision(
+                "ball", "bricks", self.ball_brick_collision
+            )
         self.object_manager.update()
 
     def render(self, screen: pygame.Surface):

@@ -31,13 +31,14 @@ class GameScene(Scene):
             self.object_manager.test_collision(
                 "ball", "paddle", self.ball_paddle_collision
             )
+            self.object_manager.test_collision('ball', 'bricks', self.ball_brick_collision)
         self.object_manager.update()
 
     def render(self, screen: pygame.Surface):
         screen.fill("LIGHTGRAY")
         self.object_manager.render(screen)
 
-    def ball_paddle_collision(self):
+    def ball_paddle_collision(self, objects):
         self.ball.direction.y *= -1
         angle = (
             1 - (self.ball.rect.centerx - self.paddle.rect.x) / self.paddle.rect.width
@@ -45,3 +46,6 @@ class GameScene(Scene):
         direction = pygame.math.Vector2(1, 0).rotate(angle)
         direction.y *= -1
         self.ball.direction = direction
+
+    def ball_brick_collision(self, objects):
+        self.object_manager.remove_object(objects[1])

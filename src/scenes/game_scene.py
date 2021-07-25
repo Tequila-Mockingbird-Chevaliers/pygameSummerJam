@@ -2,6 +2,8 @@ import pygame
 
 from src.entities.ball import Ball
 from src.entities.paddle import Paddle
+from src.entities.brick_generator import BrickGenerator
+from src.entities.brick import Brick
 from src.scenes.scene import Scene
 
 
@@ -11,6 +13,11 @@ class GameScene(Scene):
         self.in_play = False
         self.paddle = self.object_manager.add_object("paddle", Paddle(self))
         self.ball = self.object_manager.add_object("ball", Ball(self))
+        brick_generator = BrickGenerator("1")
+        for brick_pos in brick_generator.bricks:
+            self.object_manager.add_object(
+                "bricks", Brick(self, brick_pos[1], brick_pos[0])
+            )
 
     def events(self, events):
         self.object_manager.events(events)
@@ -32,7 +39,9 @@ class GameScene(Scene):
 
     def ball_paddle_collision(self):
         self.ball.direction.y *= -1
-        angle = (1 - (self.ball.rect.centerx - self.paddle.rect.x) / self.paddle.rect.width) * 120 + 30
+        angle = (
+            1 - (self.ball.rect.centerx - self.paddle.rect.x) / self.paddle.rect.width
+        ) * 120 + 30
         direction = pygame.math.Vector2(1, 0).rotate(angle)
         direction.y *= -1
         self.ball.direction = direction

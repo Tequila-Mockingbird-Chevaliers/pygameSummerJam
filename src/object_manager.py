@@ -63,7 +63,7 @@ class ObjectManager(metaclass=_Singleton):
             group.events(events)
 
     def update(self):
-        for group in self.objects.values():
+        for group in list(self.objects.values()):
             group.update()
 
     def render(self, screen):

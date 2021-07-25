@@ -1,6 +1,7 @@
 from src.Timer import Timer
 from src.entities.game_object import GameObject
 import src.constants as const
+from src.entities.laser import Laser
 
 
 class Spaceship(GameObject):
@@ -17,4 +18,4 @@ class Spaceship(GameObject):
             if self.rect.centery == 95:
                 self.shoot_timer.start_timer()
         if self.shoot_timer.check_time():
-            print("PEW")
+            self.game.object_manager.add_object('lasers', Laser(self.game, self))

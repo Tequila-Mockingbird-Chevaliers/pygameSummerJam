@@ -45,7 +45,7 @@ class GameScene(Scene):
             self.object_manager.test_collision(
                 "ball", "bricks", self.ball_brick_collision
             )
-            if self.spaceship_spawn_timer.check_time():
+            if self.spaceship_spawn_timer.check_time() and len(self.free_positions) > 1:
                 position = random.choice(self.free_positions)
                 self.free_positions.remove(position)
                 self.object_manager.add_object('spacehips', Spaceship(self, position))

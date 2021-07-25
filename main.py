@@ -1,13 +1,14 @@
 import pygame
 import src.constants as const
-import src.scenes as scenes
+import src.scene_manager
+import src.scenes.game_scene
 
 
 class SpaceBreaker:
     def __init__(self):
         self.screen = pygame.display.set_mode((const.WIDTH, const.HEIGHT))
-        self.manager = scenes.SceneManager(self)
-        self.manager.go_to(scenes.GameScene(self))
+        self.manager = src.scene_manager.SceneManager(self)
+        self.manager.go_to(src.scenes.game_scene.GameScene(self))
         self.clock = pygame.time.Clock()
         self.running = True
 

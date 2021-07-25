@@ -67,4 +67,3 @@ class ObjectManager(metaclass=_Singleton):
             for second_obj in second_group:
                 if first_obj.rect.colliderect(second_obj.rect):
                     function()
-

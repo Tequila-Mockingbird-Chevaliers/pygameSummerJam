@@ -66,4 +66,7 @@ class GameScene(Scene):
         self.object_manager.render(screen)
 
     def ball_paddle_collision(self):
-        self.ball.direction.y *= -1
+        angle = (1 - (self.ball.rect.centerx - self.paddle.rect.x) / self.paddle.rect.width) * 120 + 30
+        direction = pygame.math.Vector2(1, 0).rotate(angle)
+        direction.y *= -1
+        self.ball.direction = direction

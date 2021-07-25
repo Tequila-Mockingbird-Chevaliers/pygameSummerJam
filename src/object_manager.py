@@ -66,6 +66,5 @@ class ObjectManager(metaclass=_Singleton):
         for first_obj in first_group:
             for second_obj in second_group:
                 if first_obj.rect.colliderect(second_obj.rect):
-                    print("HIT")
                     function()
 

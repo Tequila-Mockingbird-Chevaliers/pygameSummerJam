@@ -7,7 +7,7 @@ class SpaceBreaker:
     def __init__(self):
         self.screen = pygame.display.set_mode((const.WIDTH, const.HEIGHT))
         self.manager = scenes.SceneManager(self)
-        self.manager.go_to(scenes.GameScene())
+        self.manager.go_to(scenes.GameScene(self))
         self.clock = pygame.time.Clock()
         self.running = True
 
@@ -19,6 +19,7 @@ class SpaceBreaker:
             self.manager.scene.update()
             self.manager.scene.render(self.screen)
             pygame.display.flip()
+            pygame.display.set_caption(f"{self.clock.get_fps()}")
             self.clock.tick(const.FPS)
 
     def quit(self):

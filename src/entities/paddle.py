@@ -1,18 +1,20 @@
-import pygame
+from __future__ import annotations
 
+import pygame
 from src import constants as const
 from src.entities.game_object import GameObject
+from src.state.game_state import GameState
 
 
 class Paddle(GameObject):
-    def __init__(self, game):
-        image = game.program.assets.images['PADDLE']
-        rect = image.get_rect()
-        rect.center = (const.WIDTH // 2, const.HEIGHT - 50)
-        super().__init__(game, image, rect)
+    def __init__(self, game_state: GameState):
+        self.image = game_state.assets.paddle
+        self.rect = self.image.get_rect()
+        self.rect.center = (const.WIDTH // 2, const.HEIGHT - 50)
+        self.game_state = game_state
         self.direction = 0
 
-    def events(self, events):
+    def events(self, events: list[pygame.event.Event]):
         for event in events:
             if event.type == pygame.KEYUP:
                 if (
@@ -22,6 +24,7 @@ class Paddle(GameObject):
                     and self.direction == 1
                 ):
                     self.direction = 0
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.direction = -1

@@ -1,14 +1,12 @@
 from abc import ABC, abstractmethod
+from src.state.game_state import GameState
 
-from src import object_manager
+from src.entities.object_manager import ObjectManager
 
 
 class Scene(ABC):
-    def __init__(self, program):
-        self.program = program
-        self.object_manager: object_manager.ObjectManager = (
-            object_manager.ObjectManager(self.program)
-        )
+    def __init__(self, game_state: GameState):
+        self.game_state = game_state
 
     def start(self):
         pass
@@ -26,4 +24,4 @@ class Scene(ABC):
         pass
 
     def end(self):
-        self.object_manager.clear_objects()
+        self.game_state.clear_objects()

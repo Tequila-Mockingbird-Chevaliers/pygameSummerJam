@@ -2,31 +2,50 @@ import pygame
 
 
 class Timer:
-    def __init__(self, countdown, start=True):
+    """
+    Timer class
+    """
+
+    def __init__(self, countdown: int, start: bool = True):
+        """
+        Initialise timer instance
+        """
         self.countdown = countdown
-        self.current_time = None
-        self.last_update = None
-        self.running = False
+        self.last_update: int = 0
+        self.current_time: int = 0
+        self.running: bool = False
         if start:
             self.start_timer()
 
     def start_timer(self):
+        """
+        Start the timer
+        """
         self.running = True
         self.last_update = pygame.time.get_ticks()
         self.current_time = pygame.time.get_ticks()
 
     def stop_timer(self):
+        """
+        Stop the timer
+        """
         self.running = False
 
     def check_time(self):
-        if self.running:
-            self.current_time = pygame.time.get_ticks()
-            if self.current_time - self.last_update > self.countdown:
-                self.last_update = self.current_time
-                return True
-            else:
-                return False
+        """
+        Check the time
+        """
+        if not self.running:
+            return False
+
+        self.current_time = pygame.time.get_ticks()
+        if self.current_time - self.last_update > self.countdown:
+            self.last_update = self.current_time
+            return True
         return False
 
     def get_percentage(self):
+        """
+        Get the time percentage
+        """
         return (self.current_time - self.last_update) / self.countdown

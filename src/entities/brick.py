@@ -1,14 +1,15 @@
 import random
+
 from src.entities.game_object import GameObject
-import src.constants as const
+from src.state.game_state import GameState
 
 
 class Brick(GameObject):
-    def __init__(self, game, grid_x, grid_y):
-        image = game.program.assets.images[f'BRICK{random.randint(0, const.NO_OF_BRICK_IMAGES - 1)}']
-        rect = image.get_rect()
-        rect.topleft = (grid_x * 50, 300 + grid_y * 20)
-        super().__init__(game, image, rect)
+    def __init__(self, game_state: GameState, grid):
+        self.image = random.choice(game_state.assets.bricks)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (grid[0] * 50, 300 + grid[1] * 20)
+        self.game_state = game_state
 
     def remove(self):
-        self.game.add_score(10)
+        self.game_state.add_score(10)

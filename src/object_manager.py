@@ -45,15 +45,25 @@ class ObjectManager(metaclass=_Singleton):
         group.add(obj)
         return obj
 
+    def remove_object(self, obj):
+        for group in self.objects.values():
+            if obj in group.objects:
+                group.objects.remove(obj)
+                obj.remove()
+                return
+
     def clear_objects(self):
         self.objects.clear()
+
+    def get_number_of_objects(self, name):
+        return len(self.objects[name].objects)
 
     def events(self, events):
         for group in self.objects.values():
             group.events(events)
 
     def update(self):
-        for group in self.objects.values():
+        for group in list(self.objects.values()):
             group.update()
 
     def render(self, screen):
@@ -66,4 +76,4 @@ class ObjectManager(metaclass=_Singleton):
         for first_obj in first_group:
             for second_obj in second_group:
                 if first_obj.rect.colliderect(second_obj.rect):
-                    function()
+                    function([first_obj, second_obj])

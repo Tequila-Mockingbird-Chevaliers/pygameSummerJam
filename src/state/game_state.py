@@ -1,3 +1,5 @@
+import pygame
+
 from src.entities.object_manager import ObjectManager
 from src.assets import Assets
 
@@ -23,3 +25,12 @@ class GameState(ObjectManager):
         Update player score
         """
         self.score += amount
+
+    def render(self, screen: pygame.Surface):
+        """
+        Render GameState
+        """
+        super().render(screen)
+        if self.defeat:
+            screen.blit(self.assets.defeat_text, (screen.get_width() // 2 - self.assets.defeat_text.get_width() // 2,
+                                                  screen.get_height() // 2 - self.assets.defeat_text.get_height() // 2))

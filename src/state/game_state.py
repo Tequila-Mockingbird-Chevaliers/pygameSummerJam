@@ -32,5 +32,11 @@ class GameState(ObjectManager):
         """
         super().render(screen)
         if self.defeat:
-            screen.blit(self.assets.defeat_text, (screen.get_width() // 2 - self.assets.defeat_text.get_width() // 2,
-                                                  screen.get_height() // 2 - self.assets.defeat_text.get_height() // 2))
+            screen.blit(
+                self.assets.defeat_text,
+                (
+                    screen.get_width() // 2 - self.assets.defeat_text.get_width() // 2,
+                    screen.get_height() // 2
+                    - self.assets.defeat_text.get_height() // 2,
+                ),
+            )

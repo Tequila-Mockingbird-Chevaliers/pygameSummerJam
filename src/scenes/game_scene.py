@@ -60,9 +60,16 @@ class GameScene(Scene):
         if not self.game_state.defeat:
             if self.game_state.in_play:
                 self.check_end_conditions()
-                self.game_state.test_collision("ball", "paddle", self.ball_paddle_collision)
-                self.game_state.test_collision("ball", "bricks", self.ball_brick_collision)
-                if self.spaceship_spawn_timer.check_time() and len(self.free_positions) > 1:
+                self.game_state.test_collision(
+                    "ball", "paddle", self.ball_paddle_collision
+                )
+                self.game_state.test_collision(
+                    "ball", "bricks", self.ball_brick_collision
+                )
+                if (
+                    self.spaceship_spawn_timer.check_time()
+                    and len(self.free_positions) > 1
+                ):
                     position = random.choice(self.free_positions)
                     self.free_positions.remove(position)
                     self.game_state.add_object(
@@ -99,7 +106,11 @@ class GameScene(Scene):
     def check_end_conditions(self):
         ball = self.game_state["ball"]
         paddle = self.game_state["paddle"]
-        lasers = self.game_state.objects["lasers"] if "lasers" in self.game_state.objects else ObjectGroup()
+        lasers = (
+            self.game_state.objects["lasers"]
+            if "lasers" in self.game_state.objects
+            else ObjectGroup()
+        )
         if ball.rect.y > const.HEIGHT:
             self.handle_defeat()
             return

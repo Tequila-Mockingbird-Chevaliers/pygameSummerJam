@@ -7,10 +7,12 @@ import pygame
 import src.constants as const
 
 
-def load_image(image_name: str,
-               transparent_color=None,
-               alpha: Optional[int] = None,
-               size: Optional[tuple[int, int]] = None):
+def load_image(
+    image_name: str,
+    transparent_color=None,
+    alpha: Optional[int] = None,
+    size: Optional[tuple[int, int]] = None,
+):
     """
     Utility function to load an image, also handles transparancy
     """
@@ -38,12 +40,17 @@ class Assets:
         self.ball = load_image(const.BALL_IMAGE, transparent_color=(0, 0, 0))
 
         self.bricks = [
-            load_image(f"{const.BRICK_IMAGE}{i}.{const.BRICK_IMAGE_EXT}", size=(const.BRICK_WIDTH, const.BRICK_HEIGHT))
+            load_image(
+                f"{const.BRICK_IMAGE}{i}.{const.BRICK_IMAGE_EXT}",
+                size=(const.BRICK_WIDTH, const.BRICK_HEIGHT),
+            )
             for i in range(1, const.NO_OF_BRICK_IMAGES + 1)
         ]
 
         self.spaceship = load_image(
-            const.SPACESHIP_IMAGE, transparent_color=(255, 255, 255), size=(const.SPACESHIP_WIDTH, const.SPACESHIP_HEIGHT)
+            const.SPACESHIP_IMAGE,
+            transparent_color=(255, 255, 255),
+            size=(const.SPACESHIP_WIDTH, const.SPACESHIP_HEIGHT),
         )
         self.laser = load_image(const.LASER_IMAGE, transparent_color=(255, 255, 255))
 

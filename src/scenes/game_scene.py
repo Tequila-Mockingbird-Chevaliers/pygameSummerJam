@@ -7,6 +7,7 @@ import src.constants as const
 from src.entities.ball import Ball
 from src.entities.brick import Brick
 from src.entities.brick_generator import BrickGenerator
+from src.entities.object_manager import ObjectGroup
 from src.entities.paddle import Paddle
 from src.entities.spaceship import Spaceship
 from src.scenes.scene import Scene
@@ -88,12 +89,15 @@ class GameScene(Scene):
 
     def check_end_conditions(self):
         ball = self.game_state["ball"]
+        paddle = self.game_state["paddle"]
+        lasers = self.game_state.objects["lasers"] if "lasers" in self.game_state.objects else ObjectGroup()
         if ball.rect.y > const.HEIGHT:
             self.handle_defeat()
+            return
+        for laser in lasers:
+            if laser.rect.colliderect(paddle.rect):
+                self.handle_defeat()
+                return
 
     def handle_defeat(self):
-        ball = self.game_state["ball"]
-        paddle = self.game_state["paddle"]
         self.game_state.defeat = True
-        self.game_state.remove_object(ball)
-        self.game_state.remove_object(paddle)

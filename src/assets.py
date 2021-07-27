@@ -46,3 +46,6 @@ class Assets:
             const.SPACESHIP_IMAGE, transparent_color=(255, 255, 255), size=(const.SPACESHIP_WIDTH, const.SPACESHIP_HEIGHT)
         )
         self.laser = load_image(const.LASER_IMAGE, transparent_color=(255, 255, 255))
+
+        default_font = pygame.font.Font(pygame.font.get_default_font(), 50)
+        self.defeat_text = default_font.render("GAME OVER", True, pygame.Color("black"))

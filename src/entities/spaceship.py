@@ -12,7 +12,7 @@ class Spaceship(GameObject):
 
     def __init__(self, game_state: GameState, location: int):
         """
-        Initialize GameObject class
+        Initialize Spaceship class
         """
         super().__init__(game_state, game_state.assets.spaceship)
         self.rect.topleft = (location * const.SPACESHIP_WIDTH, - const.SPACESHIP_HEIGHT)

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 import pygame
@@ -5,11 +7,18 @@ import pygame
 import src.constants as const
 
 
-def load_image(image_name: str, transparent_color=None, alpha: Optional[int] = None):
+def load_image(image_name: str,
+               transparent_color=None,
+               alpha: Optional[int] = None,
+               size: Optional[tuple[int, int]] = None):
     """
     Utility function to load an image, also handles transparancy
     """
     image = pygame.image.load(const.IMAGE_FOLDER / image_name)
+
+    if size is not None:
+        image = pygame.transform.scale(image, size)
+
     if transparent_color is not None:
         image.set_colorkey(transparent_color)
 
@@ -29,7 +38,7 @@ class Assets:
         self.ball = load_image(const.BALL_IMAGE, transparent_color=(0, 0, 0))
 
         self.bricks = [
-            load_image(f"{const.BRICK_IMAGE}{i}.{const.BRICK_IMAGE_EXT}")
+            load_image(f"{const.BRICK_IMAGE}{i}.{const.BRICK_IMAGE_EXT}", size=(const.BRICK_WIDTH, const.BRICK_HEIGHT))
             for i in range(1, const.NO_OF_BRICK_IMAGES + 1)
         ]
 

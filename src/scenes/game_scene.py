@@ -47,17 +47,19 @@ class GameScene(Scene):
         """
         Update game logic
         """
-        if self.game_state.in_play:
-            self.game_state.test_collision("ball", "paddle", self.ball_paddle_collision)
-            self.game_state.test_collision("ball", "bricks", self.ball_brick_collision)
-            if self.spaceship_spawn_timer.check_time() and len(self.free_positions) > 1:
-                position = random.choice(self.free_positions)
-                self.free_positions.remove(position)
-                self.game_state.add_object(
-                    "spacehips", Spaceship(self.game_state, position)
-                )
+        if not self.game_state.defeat:
+            if self.game_state.in_play:
+                self.check_end_conditions()
+                self.game_state.test_collision("ball", "paddle", self.ball_paddle_collision)
+                self.game_state.test_collision("ball", "bricks", self.ball_brick_collision)
+                if self.spaceship_spawn_timer.check_time() and len(self.free_positions) > 1:
+                    position = random.choice(self.free_positions)
+                    self.free_positions.remove(position)
+                    self.game_state.add_object(
+                        "spacehips", Spaceship(self.game_state, position)
+                    )
 
-        self.game_state.update()
+            self.game_state.update()
 
     def render(self, screen: pygame.Surface):
         """
@@ -83,3 +85,15 @@ class GameScene(Scene):
         Handle ball-brick collison
         """
         self.game_state.remove_object(objects[1])
+
+    def check_end_conditions(self):
+        ball = self.game_state["ball"]
+        if ball.rect.y > const.HEIGHT:
+            self.handle_defeat()
+
+    def handle_defeat(self):
+        ball = self.game_state["ball"]
+        paddle = self.game_state["paddle"]
+        self.game_state.defeat = True
+        self.game_state.remove_object(ball)
+        self.game_state.remove_object(paddle)

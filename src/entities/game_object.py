@@ -16,7 +16,7 @@ class GameObject:
     def __init__(
         self,
         game_state: GameState,
-        image: Optional[pygame.surface.Surface] = None,
+        image: Optional[pygame.surface.Surface],
         rect: Optional[pygame.rect.Rect] = None,
     ):
         if rect is None:

@@ -15,6 +15,8 @@ class GameState(ObjectManager):
         self.assets = Assets()
         self.score: int = 0
         self.in_play: bool = False
+        self.defeat: bool = False
+        self.victory: bool = False
 
     def add_score(self, amount: int):
         """

@@ -43,6 +43,6 @@ class Assets:
         ]
 
         self.spaceship = load_image(
-            const.SPACESHIP_IMAGE, transparent_color=(255, 255, 255)
+            const.SPACESHIP_IMAGE, transparent_color=(255, 255, 255), size=(const.SPACESHIP_WIDTH, const.SPACESHIP_HEIGHT)
         )
         self.laser = load_image(const.LASER_IMAGE, transparent_color=(255, 255, 255))

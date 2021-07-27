@@ -15,10 +15,8 @@ class Ball(GameObject):
         """
         Initialise Ball class
         """
-        self.image = game_state.assets.ball
-        self.rect = game_state.assets.ball.get_rect()
+        super().__init__(game_state, game_state.assets.ball)
         self.rect.center = (const.WIDTH // 2, const.HEIGHT - 75)
-        self.game_state = game_state
 
         seed = random.choice([-1, 1]) * random.randint(1, 5)
         self.direction = pygame.Vector2(

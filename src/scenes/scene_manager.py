@@ -10,7 +10,7 @@ class SceneManager:
 
     def __init__(self):
         """
-        Initialise SceneManager class
+        Initialize SceneManager class
         """
         self.scene: Optional[Scene] = None
 

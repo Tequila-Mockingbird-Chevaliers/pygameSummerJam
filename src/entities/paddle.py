@@ -7,12 +7,22 @@ from src.state.game_state import GameState
 
 
 class Paddle(GameObject):
+    """
+    Paddle class
+    """
+
     def __init__(self, game_state: GameState):
+        """
+        Initialize Paddle class
+        """
         super().__init__(game_state, game_state.assets.paddle)
         self.rect.center = (const.WIDTH // 2, const.HEIGHT - 50)
         self.direction = 0
 
     def events(self, events: list[pygame.event.Event]):
+        """
+        Process events
+        """
         for event in events:
             if event.type == pygame.KEYUP:
                 if (
@@ -30,6 +40,9 @@ class Paddle(GameObject):
                     self.direction = 1
 
     def update(self):
+        """
+        Runs an update operation
+        """
         if self.direction:
             self.rect.x += const.PADDLE_SPEED * self.direction
             if self.rect.x < 0:

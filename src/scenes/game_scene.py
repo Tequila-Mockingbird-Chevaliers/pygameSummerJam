@@ -21,7 +21,7 @@ class GameScene(Scene):
 
     def __init__(self, game_state: GameState):
         """
-        Initialise GameScene object
+        Initialize GameScene object
         """
         super().__init__(game_state)
 
@@ -34,6 +34,9 @@ class GameScene(Scene):
             self.game_state.add_object("bricks", Brick(game_state, brick_pos))
 
     def events(self, events: list[pygame.event.Event]):
+        """
+        Handle events
+        """
         self.game_state.events(events)
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -41,6 +44,9 @@ class GameScene(Scene):
                     self.game_state.in_play = True
 
     def update(self):
+        """
+        Update game logic
+        """
         if self.game_state.in_play:
             self.game_state.test_collision("ball", "paddle", self.ball_paddle_collision)
             self.game_state.test_collision("ball", "bricks", self.ball_brick_collision)
@@ -54,10 +60,16 @@ class GameScene(Scene):
         self.game_state.update()
 
     def render(self, screen: pygame.Surface):
+        """
+        Render game window
+        """
         screen.fill("LIGHTGRAY")
         self.game_state.render(screen)
 
     def ball_paddle_collision(self, objects):
+        """
+        Handle ball and paddle collision
+        """
         ball = self.game_state["ball"]
         paddle = self.game_state["paddle"]
         ball.direction.y *= -1
@@ -67,4 +79,7 @@ class GameScene(Scene):
         ball.direction = direction
 
     def ball_brick_collision(self, objects):
+        """
+        Handle ball-brick collison
+        """
         self.game_state.remove_object(objects[1])

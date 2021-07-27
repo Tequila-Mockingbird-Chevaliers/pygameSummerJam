@@ -21,7 +21,7 @@ class ObjectGroup:
 
     def __init__(self):
         """
-        Initialise ObjectGroup class
+        Initialize ObjectGroup class
         """
         self.objects: list[GameObject] = []
 
@@ -78,11 +78,14 @@ class ObjectManager(metaclass=_Singleton):
 
     def __init__(self):
         """
-        Initialise ObjectManager class
+        Initialize ObjectManager class
         """
         self.objects: dict[str, ObjectGroup] = {}
 
     def __getitem__(self, name: str) -> GameObject:
+        """
+        Gets the first GameObject that belongs to the particular ObjectGroup
+        """
         return self.objects[name].objects[0]
 
     def add_object(self, name: str, obj: GameObject):

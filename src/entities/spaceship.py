@@ -6,12 +6,22 @@ from src.timer import Timer
 
 
 class Spaceship(GameObject):
+    """
+    Spaceship class
+    """
+
     def __init__(self, game_state: GameState, location: int):
+        """
+        Initialize GameObject class
+        """
         super().__init__(game_state, game_state.assets.spaceship)
         self.rect.center = (50 + location * 100, -50)
         self.shoot_timer = Timer(const.SPACESHIP_SHOOT_TIMER, start=False)
 
     def update(self):
+        """
+        Runs an update operation
+        """
         if self.rect.centery < 100:
             self.rect.centery += 1
             if self.rect.centery == 95:

@@ -13,7 +13,7 @@ class Ball(GameObject):
 
     def __init__(self, game_state: GameState):
         """
-        Initialise Ball class
+        Initialize Ball class
         """
         super().__init__(game_state, game_state.assets.ball)
         self.rect.center = (const.WIDTH // 2, const.HEIGHT - 75)
@@ -24,6 +24,9 @@ class Ball(GameObject):
         ).normalize()
 
     def update(self):
+        """
+        Run an update operation on the Ball object
+        """
         if not self.game_state.in_play:
             self.rect.centerx = self.game_state["paddle"].rect.centerx
         else:

@@ -8,7 +8,7 @@ class Timer:
 
     def __init__(self, countdown: int, start: bool = True):
         """
-        Initialise timer instance
+        Initialize timer instance
         """
         self.countdown = countdown
         self.last_update: int = 0

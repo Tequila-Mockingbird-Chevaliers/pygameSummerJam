@@ -16,9 +16,12 @@ class GameObject:
     def __init__(
         self,
         game_state: GameState,
-        image: Optional[pygame.surface.Surface],
+        image: pygame.surface.Surface,
         rect: Optional[pygame.rect.Rect] = None,
     ):
+        """
+        Initialize GameObject class
+        """
         if rect is None:
             rect = image.get_rect()
         self.image = image
@@ -26,14 +29,23 @@ class GameObject:
         self.game_state = game_state
 
     def remove(self):
-        pass
+        """
+        Removes the GameObject
+        """
 
     def events(self, events: list[pygame.event.Event]):
-        pass
+        """
+        GameObject process events
+        """
 
     def update(self):
-        pass
+        """
+        Runs an update operation
+        """
 
     def render(self, screen: pygame.Surface):
+        """
+        Render the GameObject onto the screen
+        """
         if self.image is not None and self.rect is not None:
             screen.blit(self.image, self.rect)

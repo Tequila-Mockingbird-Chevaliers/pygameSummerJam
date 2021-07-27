@@ -9,7 +9,7 @@ class GameState(ObjectManager):
 
     def __init__(self):
         """
-        Initialise gamestate class
+        Initialize gamestate class
         """
         super().__init__()
         self.assets = Assets()

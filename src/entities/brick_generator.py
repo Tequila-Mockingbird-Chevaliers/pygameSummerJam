@@ -8,7 +8,7 @@ class BrickGenerator:
 
     def __init__(self, level: int):
         """
-        Initialise BrickGenerator
+        Initialize BrickGenerator
         """
         self.bricks: list[tuple[int, int]] = []
         self.load_level(level)

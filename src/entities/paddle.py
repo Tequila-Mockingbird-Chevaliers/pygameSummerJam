@@ -8,10 +8,8 @@ from src.state.game_state import GameState
 
 class Paddle(GameObject):
     def __init__(self, game_state: GameState):
-        self.image = game_state.assets.paddle
-        self.rect = self.image.get_rect()
+        super().__init__(game_state, game_state.assets.paddle)
         self.rect.center = (const.WIDTH // 2, const.HEIGHT - 50)
-        self.game_state = game_state
         self.direction = 0
 
     def events(self, events: list[pygame.event.Event]):

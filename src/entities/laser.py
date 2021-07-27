@@ -12,10 +12,8 @@ if TYPE_CHECKING:
 
 class Laser(GameObject):
     def __init__(self, game_state: GameState, spaceship: Spaceship):
-        self.image = game_state.assets.laser
-        self.rect = self.image.get_rect()
+        super().__init__(game_state, game_state.assets.laser)
         self.rect.center = spaceship.rect.center
-        self.game_state = game_state
 
     def update(self):
         self.rect.y += const.LASER_SPEED

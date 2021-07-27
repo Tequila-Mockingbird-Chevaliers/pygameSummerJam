@@ -7,10 +7,8 @@ from src.timer import Timer
 
 class Spaceship(GameObject):
     def __init__(self, game_state: GameState, location: int):
-        self.image = game_state.assets.spaceship
-        self.rect = self.image.get_rect()
+        super().__init__(game_state, game_state.assets.spaceship)
         self.rect.center = (50 + location * 100, -50)
-        self.game_state = game_state
         self.shoot_timer = Timer(const.SPACESHIP_SHOOT_TIMER, start=False)
 
     def update(self):

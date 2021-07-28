@@ -32,9 +32,11 @@ class GameScene(Scene):
     def initialize_game(self):
         self.game_state.in_play = False
         self.game_state.defeat = False
+        self.game_state.victory = False
         self.game_state.clear_objects()
         self.game_state.add_object("paddle", Paddle(self.game_state))
         self.game_state.add_object("ball", Ball(self.game_state))
+        self.game_state.score = 0
         self.spaceship_spawn_timer = Timer(const.SPACESHIP_SPAWN_TIMER)
         self.free_positions = [0, 1, 2, 3, 4, 5]
         brick_generator = BrickGenerator(1)

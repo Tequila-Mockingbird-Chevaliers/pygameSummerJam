@@ -34,11 +34,17 @@ class GameState(ObjectManager):
         score_text = self.assets.score_font.render(f"SCORE : {self.score}", True, pygame.Color("black"))
         screen.blit(score_text, (0, self.assets.score_font.get_height() // 2))
         if self.defeat:
-            screen.blit(
-                self.assets.defeat_text,
-                (
-                    screen.get_width() // 2 - self.assets.defeat_text.get_width() // 2,
-                    screen.get_height() // 2
-                    - self.assets.defeat_text.get_height() // 2,
-                ),
-            )
+            GameState.__blit_text_at_center(screen, self.assets.defeat_text)
+        elif self.victory:
+            GameState.__blit_text_at_center(screen, self.assets.victory_text)
+
+    @staticmethod
+    def __blit_text_at_center(screen: pygame.Surface, text: pygame.Surface):
+        screen.blit(
+            text,
+            (
+                screen.get_width() // 2 - text.get_width() // 2,
+                screen.get_height() // 2
+                - text.get_height() // 2,
+            ),
+        )

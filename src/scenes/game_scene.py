@@ -57,7 +57,7 @@ class GameScene(Scene):
         """
         Update game logic
         """
-        if not self.game_state.defeat:
+        if not self.game_state.defeat and not self.game_state.victory:
             if self.game_state.in_play:
                 self.check_end_conditions()
                 self.game_state.test_collision(
@@ -67,8 +67,8 @@ class GameScene(Scene):
                     "ball", "bricks", self.ball_brick_collision
                 )
                 if (
-                    self.spaceship_spawn_timer.check_time()
-                    and len(self.free_positions) > 1
+                        self.spaceship_spawn_timer.check_time()
+                        and len(self.free_positions) > 1
                 ):
                     position = random.choice(self.free_positions)
                     self.free_positions.remove(position)
@@ -111,6 +111,7 @@ class GameScene(Scene):
             if "lasers" in self.game_state.objects
             else ObjectGroup()
         )
+        # Check defeat conditions
         if ball.rect.y > const.HEIGHT:
             self.handle_defeat()
             return
@@ -118,6 +119,14 @@ class GameScene(Scene):
             if laser.rect.colliderect(paddle.rect):
                 self.handle_defeat()
                 return
+        # Check victory conditions
+        bricks = self.game_state.objects["bricks"].objects
+        if not bricks:
+            self.handle_victory()
+            return
 
     def handle_defeat(self):
         self.game_state.defeat = True
+
+    def handle_victory(self):
+        self.game_state.victory = True

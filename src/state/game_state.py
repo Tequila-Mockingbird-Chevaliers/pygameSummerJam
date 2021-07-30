@@ -19,6 +19,7 @@ class GameState(ObjectManager):
         self.in_play: bool = False
         self.defeat: bool = False
         self.victory: bool = False
+        self.victory_sound_played = False
 
     def add_score(self, amount: int):
         """
@@ -31,11 +32,18 @@ class GameState(ObjectManager):
         Render GameState
         """
         super().render(screen)
-        score_text = self.assets.score_font.render(f"SCORE : {self.score}", True, pygame.Color("black"))
+        score_text = self.assets.score_font.render(
+            f"SCORE : {self.score}", True, pygame.Color("black")
+        )
         screen.blit(score_text, (0, self.assets.score_font.get_height() // 2))
         if self.defeat:
             GameState.__blit_text_at_center(screen, self.assets.defeat_text)
+
         elif self.victory:
+            if not self.victory_sound_played:
+                self.assets.tingle_sound.play()
+                self.victory_sound_played = True
+
             GameState.__blit_text_at_center(screen, self.assets.victory_text)
 
     @staticmethod
@@ -44,7 +52,6 @@ class GameState(ObjectManager):
             text,
             (
                 screen.get_width() // 2 - text.get_width() // 2,
-                screen.get_height() // 2
-                - text.get_height() // 2,
+                screen.get_height() // 2 - text.get_height() // 2,
             ),
         )

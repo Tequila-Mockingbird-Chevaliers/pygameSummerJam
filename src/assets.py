@@ -58,4 +58,12 @@ class Assets:
 
         default_font = pygame.font.Font(pygame.font.get_default_font(), 50)
         self.defeat_text = default_font.render("GAME OVER", True, pygame.Color("black"))
-        self.victory_text = default_font.render("VICTORY !", True, pygame.Color("black"))
+        self.victory_text = default_font.render(
+            "VICTORY !", True, pygame.Color("black")
+        )
+
+        self.laser_sound = pygame.mixer.Sound(const.SOUNDS_FOLDER / "pew.ogg")
+        self.block_sound = pygame.mixer.Sound(const.SOUNDS_FOLDER / "blop.ogg")
+
+        self.paddle_sound = pygame.mixer.Sound(const.SOUNDS_FOLDER / "blam.ogg")
+        self.tingle_sound = pygame.mixer.Sound(const.SOUNDS_FOLDER / "tingle.ogg")

@@ -29,3 +29,4 @@ class Spaceship(GameObject):
 
         if self.shoot_timer.check_time():
             self.game_state.add_object("lasers", Laser(self.game_state, self))
+            self.game_state.assets.laser_sound.play()

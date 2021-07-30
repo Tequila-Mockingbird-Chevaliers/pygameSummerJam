@@ -69,8 +69,8 @@ class GameScene(Scene):
                     "ball", "bricks", self.ball_brick_collision
                 )
                 if (
-                        self.spaceship_spawn_timer.check_time()
-                        and len(self.free_positions) > 1
+                    self.spaceship_spawn_timer.check_time()
+                    and len(self.free_positions) > 1
                 ):
                     position = random.choice(self.free_positions)
                     self.free_positions.remove(position)
@@ -91,6 +91,7 @@ class GameScene(Scene):
         """
         Handle ball and paddle collision
         """
+        self.game_state.assets.paddle_sound.play()
         ball = self.game_state["ball"]
         paddle = self.game_state["paddle"]
         ball.direction.y *= -1
@@ -103,6 +104,7 @@ class GameScene(Scene):
         """
         Handle ball-brick collison
         """
+        self.game_state.assets.block_sound.play()
         self.game_state.remove_object(objects[1])
 
     def check_end_conditions(self):

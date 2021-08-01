@@ -1,6 +1,6 @@
 import pygame
-import time
 
+import time
 import math
 
 from src.entities.object_manager import ObjectManager, ObjectGroup

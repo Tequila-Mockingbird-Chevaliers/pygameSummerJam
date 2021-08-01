@@ -164,3 +164,5 @@ class GameScene(Scene):
         self.game_state.victory = True
         self.game_state.timer_before_next_level.start_timer()
         self.current_level += 1
+        if self.current_level > const.MAX_LEVEL:
+            self.current_level = 1

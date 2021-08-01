@@ -3,7 +3,7 @@ import time
 
 import math
 
-from src.constants import TIMER_BETWEEN_LEVELS
+from src.constants import TIMER_BETWEEN_LEVELS, NO_LIVES
 from src.entities.object_manager import ObjectManager
 from src.assets import Assets
 from src.timer import Timer
@@ -31,7 +31,7 @@ class GameState(ObjectManager):
         """
         self.timer_before_next_level.stop_timer()
         self.start_time: float = 0
-        self.lives: int = 3
+        self.lives: int = NO_LIVES
         self.in_play: bool = False
         self.defeat: bool = False
         self.victory: bool = False
@@ -67,7 +67,13 @@ class GameState(ObjectManager):
         score_text = self.assets.score_font.render(
             f"SCORE : {self.score}", True, pygame.Color("white")
         )
-        screen.blit(score_text, (0, self.assets.score_font.get_height() // 2))
+        screen.blit(score_text, (10, self.assets.score_font.get_height() // 2))
+
+        lives_text = self.assets.lives_font.render(
+            f"LIVES : {self.lives}", True, pygame.Color("white")
+        )
+        screen.blit(lives_text, (screen.get_width() - lives_text.get_width() - 10, self.assets.lives_font.get_height() // 2))
+
         if self.defeat:
             GameState.__blit_text_at_center(screen, self.assets.defeat_text)
 

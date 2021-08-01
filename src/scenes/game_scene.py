@@ -174,6 +174,7 @@ class GameScene(Scene):
         if self.game_state.lives <= 0:
             self.game_state.defeat = True
         else:
+            self.game_state.score -= 50
             self.initialize_new_play()
 
     def handle_victory(self):

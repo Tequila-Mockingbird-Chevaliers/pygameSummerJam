@@ -15,6 +15,11 @@ class SpaceBreaker:
         Start the game
         """
         self.screen = pygame.display.set_mode(const.WINDOW_SIZE, pygame.SCALED)
+
+        pygame.mixer.music.load(str(const.SOUNDS_FOLDER / "brecan_bgm.ogg"))
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(const.BG_MUSIC_VOL)
+
         self.game_state = GameState()
         self.manager = SceneManager()
         self.manager.go_to(GameScene(self.game_state))
@@ -34,7 +39,7 @@ class SpaceBreaker:
                 self.manager.scene.render(self.screen)
 
             pygame.display.flip()
-            pygame.display.set_caption(f"{clock.get_fps()}")
+            pygame.display.set_caption(f"BrickBrecan @ {clock.get_fps():.2f} FPS")
             clock.tick(const.FPS)
 
     def quit(self):

@@ -124,6 +124,8 @@ class GameScene(Scene):
         Handle ball-brick collision
         """
         self.game_state.assets.block_sound.play()
+        ball = self.game_state["ball"]
+        ball.direction.y *= -1
         self.game_state.remove_object(objects[1])
 
     def ball_spaceship_collision(self, objects):
@@ -131,6 +133,8 @@ class GameScene(Scene):
         Handle ball-spaceship collision
         """
         self.game_state.assets.tingle_sound.play()
+        ball = self.game_state["ball"]
+        ball.direction.y *= -1
         self.free_positions.add(objects[1].line)
         self.game_state.remove_object(objects[1])
 

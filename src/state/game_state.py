@@ -1,6 +1,6 @@
 import pygame
 
-from src.entities.object_manager import ObjectManager
+from src.entities.object_manager import ObjectManager, ObjectGroup
 from src.assets import Assets
 
 

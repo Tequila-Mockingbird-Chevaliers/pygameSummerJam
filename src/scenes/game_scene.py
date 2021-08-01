@@ -31,9 +31,7 @@ class GameScene(Scene):
         self.initialize_game()
 
     def initialize_game(self):
-        self.game_state.in_play = False
-        self.game_state.defeat = False
-        self.game_state.victory = False
+        self.game_state.init_game()
         self.game_state.clear_objects()
         self.game_state.add_object("paddle", Paddle(self.game_state))
         self.game_state.add_object("ball", Ball(self.game_state))
@@ -52,9 +50,18 @@ class GameScene(Scene):
         self.game_state.events(events)
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.game_state.in_play = True
-                if event.key == pygame.K_r:
+                if event.key == pygame.K_SPACE and not self.game_state.in_play:
+                    self.game_state.start()
+
+                elif event.key == pygame.K_r:
+                    self.initialize_game()
+
+                elif (
+                    self.game_state.defeat or self.game_state.victory
+                ) and event.key in [
+                    pygame.K_SPACE,
+                    pygame.K_RETURN,
+                ]:
                     self.initialize_game()
 
     def update(self):
@@ -131,10 +138,12 @@ class GameScene(Scene):
         if ball.rect.y > const.HEIGHT:
             self.handle_defeat()
             return
+
         for laser in lasers:
             if laser.rect.colliderect(paddle.rect):
                 self.handle_defeat()
                 return
+
         # Check victory conditions
         bricks = self.game_state.objects["bricks"].objects
         if not bricks:

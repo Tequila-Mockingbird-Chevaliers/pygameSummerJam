@@ -62,9 +62,9 @@ class Assets:
 
         self.laser = load_image(const.LASER_IMAGE, transparent_color=(255, 255, 255))
 
-        self.score_font = pygame.font.Font(pygame.font.get_default_font(), 20)
+        self.score_font = pygame.font.Font(const.FONT_FILE, 20)
 
-        default_font = pygame.font.Font(pygame.font.get_default_font(), 50)
+        default_font = pygame.font.Font(const.FONT_FILE, 50)
         self.defeat_text = default_font.render("GAME OVER", True, pygame.Color("white"))
         self.victory_text = default_font.render(
             "VICTORY !", True, pygame.Color("white")

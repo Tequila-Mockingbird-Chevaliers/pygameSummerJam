@@ -30,6 +30,8 @@ SOUNDS_FOLDER = ASSETS_FOLDER / "sounds"
 
 LEVELS_FOLDER = MAIN_FOLDER / "levels"
 
+FONT_FILE = ASSETS_FOLDER / "Asimov.otf"
+
 PADDLE_IMAGE = "Paddle.png"
 BALL_IMAGE = "Ball.png"
 LASER_IMAGE = "Laser.png"

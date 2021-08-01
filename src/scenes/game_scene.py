@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+from collections import Set
 
 import pygame
 import src.constants as const
@@ -26,7 +27,7 @@ class GameScene(Scene):
         """
         super().__init__(game_state)
         self.spaceship_spawn_timer = None
-        self.free_positions = []
+        self.free_positions = set()
         self.initialize_game()
 
     def initialize_game(self):
@@ -39,7 +40,7 @@ class GameScene(Scene):
         self.game_state.create_object_group("spaceships")
         self.game_state.score = 0
         self.spaceship_spawn_timer = Timer(const.SPACESHIP_SPAWN_TIMER)
-        self.free_positions = [0, 1, 2, 3, 4, 5]
+        self.free_positions = {0, 1, 2, 3, 4, 5}
         brick_generator = BrickGenerator(1)
         for brick_pos in brick_generator.bricks:
             self.game_state.add_object("bricks", Brick(self.game_state, brick_pos))
@@ -76,7 +77,7 @@ class GameScene(Scene):
                     self.spaceship_spawn_timer.check_time()
                     and len(self.free_positions) > 1
                 ):
-                    position = random.choice(self.free_positions)
+                    position = random.choice(tuple(self.free_positions))
                     self.free_positions.remove(position)
                     self.game_state.add_object(
                         "spaceships", Spaceship(self.game_state, position)
@@ -115,7 +116,7 @@ class GameScene(Scene):
         """
         Handle ball-spaceship collision
         """
-        self.free_positions.append(objects[1].line)
+        self.free_positions.add(objects[1].line)
         self.game_state.remove_object(objects[1])
 
     def check_end_conditions(self):

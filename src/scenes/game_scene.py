@@ -48,6 +48,13 @@ class GameScene(Scene):
         for brick_pos in brick_generator.bricks:
             self.game_state.add_object("bricks", Brick(self.game_state, brick_pos))
 
+    def initialize_new_play(self):
+        self.game_state.in_play = False
+        self.game_state.remove_object(self.game_state["paddle"])
+        self.game_state.add_object("paddle", Paddle(self.game_state))
+        self.game_state.remove_object(self.game_state["ball"])
+        self.game_state.add_object("ball", Ball(self.game_state))
+
     def events(self, events: list[pygame.event.Event]):
         """
         Handle events
@@ -87,8 +94,8 @@ class GameScene(Scene):
                     "ball", "spaceships", self.ball_spaceship_collision
                 )
                 if (
-                    self.spaceship_spawn_timer.check_time()
-                    and len(self.free_positions) > 1
+                        self.spaceship_spawn_timer.check_time()
+                        and len(self.free_positions) > 1
                 ):
                     position = random.choice(tuple(self.free_positions))
                     self.free_positions.remove(position)
@@ -163,7 +170,11 @@ class GameScene(Scene):
             return
 
     def handle_defeat(self):
-        self.game_state.defeat = True
+        self.game_state.lives -= 1
+        if self.game_state.lives <= 0:
+            self.game_state.defeat = True
+        else:
+            self.initialize_new_play()
 
     def handle_victory(self):
         self.game_state.victory = True

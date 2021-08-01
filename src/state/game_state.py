@@ -31,6 +31,7 @@ class GameState(ObjectManager):
         """
         self.timer_before_next_level.stop_timer()
         self.start_time: float = 0
+        self.lives: int = 3
         self.in_play: bool = False
         self.defeat: bool = False
         self.victory: bool = False

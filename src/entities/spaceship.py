@@ -16,6 +16,7 @@ class Spaceship(GameObject):
         """
         super().__init__(game_state, game_state.assets.spaceship)
         self.rect.topleft = (location * const.SPACESHIP_WIDTH, -const.SPACESHIP_HEIGHT)
+        self.line = location
         self.shoot_timer = Timer(const.SPACESHIP_SHOOT_TIMER, start=False)
 
     def update(self):

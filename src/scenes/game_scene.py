@@ -115,6 +115,7 @@ class GameScene(Scene):
         """
         Handle ball-spaceship collision
         """
+        self.free_positions.append(objects[1].line)
         self.game_state.remove_object(objects[1])
 
     def check_end_conditions(self):

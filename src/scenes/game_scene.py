@@ -31,15 +31,19 @@ class GameScene(Scene):
         self.initialize_game()
 
     def initialize_game(self):
+        self.current_level = 1
+        self.game_state.score = 0
+        self.initialize_level()
+
+    def initialize_level(self):
         self.game_state.init_game()
         self.game_state.clear_objects()
         self.game_state.add_object("paddle", Paddle(self.game_state))
         self.game_state.add_object("ball", Ball(self.game_state))
         self.game_state.create_object_group("spaceships")
-        self.game_state.score = 0
         self.spaceship_spawn_timer = Timer(const.SPACESHIP_SPAWN_TIMER)
         self.free_positions = {0, 1, 2, 3, 4, 5}
-        brick_generator = BrickGenerator(1)
+        brick_generator = BrickGenerator(self.current_level)
         for brick_pos in brick_generator.bricks:
             self.game_state.add_object("bricks", Brick(self.game_state, brick_pos))
 
@@ -56,13 +60,14 @@ class GameScene(Scene):
                 elif event.key == pygame.K_r:
                     self.initialize_game()
 
-                elif (
-                    self.game_state.defeat or self.game_state.victory
-                ) and event.key in [
+                elif event.key in [
                     pygame.K_SPACE,
                     pygame.K_RETURN,
                 ]:
-                    self.initialize_game()
+                    if self.game_state.defeat:
+                        self.initialize_game()
+                    elif self.game_state.victory:
+                        self.initialize_level()
 
     def update(self):
         """
@@ -90,7 +95,8 @@ class GameScene(Scene):
                         "spaceships", Spaceship(self.game_state, position)
                     )
 
-            self.game_state.update()
+        if self.game_state.update():
+            self.initialize_level()
 
     def render(self, screen: pygame.Surface):
         """
@@ -156,3 +162,5 @@ class GameScene(Scene):
 
     def handle_victory(self):
         self.game_state.victory = True
+        self.game_state.timer_before_next_level.start_timer()
+        self.current_level += 1

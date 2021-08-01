@@ -17,7 +17,7 @@ class Brick(GameObject):
         Initialize Brick class
         """
         super().__init__(game_state, random.choice(game_state.assets.bricks))
-        self.rect.topleft = (grid[0] * BRICK_WIDTH, 300 + grid[1] * BRICK_HEIGHT)
+        self.rect.topleft = (grid[0] * BRICK_WIDTH, 200 + grid[1] * BRICK_HEIGHT)
 
     def remove(self):
         """

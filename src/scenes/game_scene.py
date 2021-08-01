@@ -96,7 +96,7 @@ class GameScene(Scene):
         """
         Render game window
         """
-        screen.fill("LIGHTGRAY")
+        screen.blit(self.game_state.assets.bg_images[0], (0, 0))
         self.game_state.render(screen)
 
     def ball_paddle_collision(self, objects):
@@ -123,6 +123,7 @@ class GameScene(Scene):
         """
         Handle ball-spaceship collision
         """
+        self.game_state.assets.tingle_sound.play()
         self.free_positions.add(objects[1].line)
         self.game_state.remove_object(objects[1])
 

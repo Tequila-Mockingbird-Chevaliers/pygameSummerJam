@@ -1,3 +1,5 @@
+import random
+
 import src.constants as const
 from src.entities.game_object import GameObject
 from src.entities.laser import Laser
@@ -14,7 +16,7 @@ class Spaceship(GameObject):
         """
         Initialize Spaceship class
         """
-        super().__init__(game_state, game_state.assets.spaceship)
+        super().__init__(game_state, random.choice(game_state.assets.spaceships))
         self.rect.topleft = (location * const.SPACESHIP_WIDTH, -const.SPACESHIP_HEIGHT)
         self.line = location
         self.shoot_timer = Timer(const.SPACESHIP_SHOOT_TIMER, start=False)

@@ -51,7 +51,7 @@ class GameState(ObjectManager):
         """
         super().render(screen)
         score_text = self.assets.score_font.render(
-            f"SCORE : {self.score}", True, pygame.Color("black")
+            f"SCORE : {self.score}", True, pygame.Color("white")
         )
         screen.blit(score_text, (0, self.assets.score_font.get_height() // 2))
         if self.defeat:

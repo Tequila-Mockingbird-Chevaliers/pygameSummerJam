@@ -88,13 +88,18 @@ class ObjectManager(metaclass=_Singleton):
         """
         return self.objects[name].objects[0]
 
-    def add_object(self, name: str, obj: GameObject):
+    def create_object_group(self, name: str):
         """
-        Add GameObject to ObjectManager
+        Create ObjectGroup in ObjectManager if not already existing
         """
         if name not in self.objects:
             self.objects[name] = ObjectGroup()
 
+    def add_object(self, name: str, obj: GameObject):
+        """
+        Add GameObject to ObjectManager
+        """
+        self.create_object_group(name)
         self.objects[name].add(obj)
         return obj
 

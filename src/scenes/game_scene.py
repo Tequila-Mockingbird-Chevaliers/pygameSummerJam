@@ -36,6 +36,7 @@ class GameScene(Scene):
         self.game_state.clear_objects()
         self.game_state.add_object("paddle", Paddle(self.game_state))
         self.game_state.add_object("ball", Ball(self.game_state))
+        self.game_state.create_object_group("spaceships")
         self.game_state.score = 0
         self.spaceship_spawn_timer = Timer(const.SPACESHIP_SPAWN_TIMER)
         self.free_positions = [0, 1, 2, 3, 4, 5]
@@ -68,6 +69,9 @@ class GameScene(Scene):
                 self.game_state.test_collision(
                     "ball", "bricks", self.ball_brick_collision
                 )
+                self.game_state.test_collision(
+                    "ball", "spaceships", self.ball_spaceship_collision
+                )
                 if (
                     self.spaceship_spawn_timer.check_time()
                     and len(self.free_positions) > 1
@@ -75,7 +79,7 @@ class GameScene(Scene):
                     position = random.choice(self.free_positions)
                     self.free_positions.remove(position)
                     self.game_state.add_object(
-                        "spacehips", Spaceship(self.game_state, position)
+                        "spaceships", Spaceship(self.game_state, position)
                     )
 
             self.game_state.update()
@@ -102,9 +106,16 @@ class GameScene(Scene):
 
     def ball_brick_collision(self, objects):
         """
-        Handle ball-brick collison
+        Handle ball-brick collision
         """
         self.game_state.assets.block_sound.play()
+        self.game_state.remove_object(objects[1])
+
+    def ball_spaceship_collision(self, objects):
+        """
+        Handle ball-spaceship collision
+        """
+        self.free_positions.append(objects[1].line)
         self.game_state.remove_object(objects[1])
 
     def check_end_conditions(self):

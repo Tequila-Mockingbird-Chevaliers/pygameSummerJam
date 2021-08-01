@@ -33,6 +33,7 @@ class GameScene(Scene):
     def initialize_game(self):
         self.current_level = 1
         self.game_state.score = 0
+        self.game_state.game_finished = False
         self.initialize_level()
 
     def initialize_level(self):
@@ -66,7 +67,7 @@ class GameScene(Scene):
                 ]:
                     if self.game_state.defeat:
                         self.initialize_game()
-                    elif self.game_state.victory:
+                    elif self.game_state.victory and not self.game_state.game_finished:
                         self.initialize_level()
 
     def update(self):
@@ -162,7 +163,8 @@ class GameScene(Scene):
 
     def handle_victory(self):
         self.game_state.victory = True
-        self.game_state.timer_before_next_level.start_timer()
         self.current_level += 1
         if self.current_level > const.MAX_LEVEL:
-            self.current_level = 1
+            self.game_state.game_finished = True
+        else:
+            self.game_state.timer_before_next_level.start_timer()

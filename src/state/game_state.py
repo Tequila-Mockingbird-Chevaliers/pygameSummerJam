@@ -22,6 +22,7 @@ class GameState(ObjectManager):
         self.assets = Assets()
         self.timer_before_next_level = Timer(TIMER_BETWEEN_LEVELS, False)
         self.score: int = 0
+        self.game_finished: bool = False
         self.init_game()
 
     def init_game(self):
@@ -74,7 +75,10 @@ class GameState(ObjectManager):
                 self.assets.tingle_sound.play()
                 self.victory_sound_played = True
 
-            GameState.__blit_text_at_center(screen, self.assets.victory_text)
+            if self.game_finished:
+                GameState.__blit_text_at_center(screen, self.assets.game_completed_text)
+            else:
+                GameState.__blit_text_at_center(screen, self.assets.victory_text)
 
     @staticmethod
     def __blit_text_at_center(screen: pygame.Surface, text: pygame.Surface):

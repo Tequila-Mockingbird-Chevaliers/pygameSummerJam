@@ -69,6 +69,8 @@ class Assets:
         self.victory_text = default_font.render(
             "VICTORY !", True, pygame.Color("white")
         )
+        default_font_smaller = pygame.font.Font(const.FONT_FILE, 30)
+        self.game_completed_text = default_font_smaller.render("GAME COMPLETED !", True, pygame.Color("white"))
 
         self.laser_sound = pygame.mixer.Sound(const.SOUNDS_FOLDER / "pew.ogg")
         self.block_sound = pygame.mixer.Sound(const.SOUNDS_FOLDER / "blop.ogg")

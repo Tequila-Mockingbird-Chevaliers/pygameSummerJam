@@ -3,8 +3,10 @@ import time
 
 import math
 
-from src.entities.object_manager import ObjectManager, ObjectGroup
+from src.constants import TIMER_BETWEEN_LEVELS
+from src.entities.object_manager import ObjectManager
 from src.assets import Assets
+from src.timer import Timer
 
 
 class GameState(ObjectManager):
@@ -18,14 +20,16 @@ class GameState(ObjectManager):
         """
         super().__init__()
         self.assets = Assets()
+        self.timer_before_next_level = Timer(TIMER_BETWEEN_LEVELS, False)
+        self.score: int = 0
         self.init_game()
 
     def init_game(self):
         """
-        Start a game
+        Start a new level
         """
+        self.timer_before_next_level.stop_timer()
         self.start_time: float = 0
-        self.score: int = 0
         self.in_play: bool = False
         self.defeat: bool = False
         self.victory: bool = False
@@ -44,6 +48,14 @@ class GameState(ObjectManager):
         """
         div = max(math.sqrt(time.perf_counter() - self.start_time), 1)
         self.score += int(15 / div) + 3
+
+    def update(self):
+        if not self.victory and not self.defeat:
+            super().update()
+        if self.timer_before_next_level.check_time():
+            self.timer_before_next_level.stop_timer()
+            return True
+        return False
 
     def render(self, screen: pygame.Surface):
         """

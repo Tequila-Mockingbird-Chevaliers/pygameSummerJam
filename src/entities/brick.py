@@ -23,4 +23,4 @@ class Brick(GameObject):
         """
         When the brick is removed, increment score
         """
-        self.game_state.add_score(10)
+        self.game_state.add_score()

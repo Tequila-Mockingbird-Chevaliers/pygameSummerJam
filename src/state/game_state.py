@@ -1,4 +1,7 @@
 import pygame
+import time
+
+import math
 
 from src.entities.object_manager import ObjectManager
 from src.assets import Assets
@@ -15,17 +18,32 @@ class GameState(ObjectManager):
         """
         super().__init__()
         self.assets = Assets()
+        self.init_game()
+
+    def init_game(self):
+        """
+        Start a game
+        """
+        self.start_time: float = 0
         self.score: int = 0
         self.in_play: bool = False
         self.defeat: bool = False
         self.victory: bool = False
         self.victory_sound_played = False
 
-    def add_score(self, amount: int):
+    def start(self):
+        """
+        Start a game
+        """
+        self.start_time: float = time.perf_counter()
+        self.in_play: bool = True
+
+    def add_score(self):
         """
         Update player score
         """
-        self.score += amount
+        div = max(math.sqrt(time.perf_counter() - self.start_time), 1)
+        self.score += int(15 / div) + 3
 
     def render(self, screen: pygame.Surface):
         """
